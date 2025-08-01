@@ -26,7 +26,7 @@ export default function SettingsScreen() {
 
   const settingsSections = [
     {
-      title: "Appearance",
+      title: "Appearances",
       items: [
         {
           title: "Dark Mode",
@@ -67,8 +67,7 @@ export default function SettingsScreen() {
         style={[
           styles.settingItem,
           {
-            borderBottomColor: theme.colors.border,
-            backgroundColor: theme.colors.card,
+            borderLeftColor: isDark ? '#71C6FF' : '#143447'
           },
         ]}
       >
@@ -105,6 +104,7 @@ export default function SettingsScreen() {
                 {
                   color: item.textColor || theme.colors.primary,
                   fontFamily: theme.typography.fontFamily.medium,
+                  
                 },
               ]}
             >
@@ -136,13 +136,22 @@ export default function SettingsScreen() {
         showsVerticalScrollIndicator={false}
       >
         {settingsSections.map((section, sectionIndex) => (
-          <View key={sectionIndex} style={styles.section}>
+          <View style={[styles.sectionContainer, 
+            {
+              backgroundColor: theme.colors.card,
+               borderBottomColor: theme.colors.border,
+               margin: 20,
+              
+            }
+          ]}>
+                <View key={sectionIndex} style={styles.section}>
             <Text
               style={[
                 styles.sectionTitle,
                 {
-                  color: theme.colors.subtext,
                   fontFamily: theme.typography.fontFamily.medium,
+                  backgroundColor: isDark ? '#DEF3FF' : '#71C6FF',
+                  borderLeftColor: isDark ? '#71C6FF' : '#143447'
                 },
               ]}
             >
@@ -151,13 +160,14 @@ export default function SettingsScreen() {
             <View
               style={[
                 styles.sectionContent,
-                { backgroundColor: theme.colors.card },
+                // { backgroundColor: theme.colors.card },
               ]}
             >
               {section.items.map((item, index) =>
                 renderSettingItem(item, index)
               )}
             </View>
+          </View>
           </View>
         ))}
       </ScrollView>
@@ -173,22 +183,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingTop: 90,
-    paddingBottom: 40,
+    paddingTop: 140,
+  
+  },
+  sectionContainer: {
+    justifyContent: 'center',
+    alignItems: "center",
+
+    padding: 20,
+    borderBottomWidth: 0.5,
+    borderRadius: 15,
+    width: 390,
+    
+    
   },
   section: {
     marginBottom: 24,
+    gap: 26,
+  
   },
   sectionTitle: {
-    fontSize: 14,
-    marginBottom: 8,
-    paddingHorizontal: 16,
-    textTransform: "uppercase",
+    fontSize: 20,
+    paddingHorizontal: 5,
+    width: 350,
+    padding: 10,
+    borderLeftWidth: 6,
+    
+    
+
   },
   sectionContent: {
     borderRadius: 12,
-    marginHorizontal: 16,
-    overflow: "hidden",
+   
+    
   },
   settingItem: {
     flexDirection: "row",
@@ -196,7 +223,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 14,
     paddingHorizontal: 16,
-    borderBottomWidth: 0.5,
+    borderLeftWidth: 0.5,
   },
   settingItemLeft: {
     flexDirection: "row",
